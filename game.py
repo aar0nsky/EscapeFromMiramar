@@ -4,7 +4,8 @@ import sys
 import json
 
 def play():
-    configData = loadConfig('game.json')
+    config_file = 'game.json'
+    configData = loadConfig(config_file)
     character = loadCharacterData(configData)
     inventory = loadInventory(configData)
     commands = buildCommands()
@@ -39,13 +40,14 @@ def play():
                     tabs = '\t\t\t\t\t'
                 print(str(command_values[x]) + tabs + str(command_keys[x]))
         elif action_input in command_values[6]:
-            print(command_keys[6])
+            print('Exiting...')
+            saveConfig(configData,config_file)
             exit()
         else:
             print("Invalid action!")
 
 def loadConfig(filename):
-    with open(filename) as json_data_file:
+    with open(filename, 'r') as json_data_file:
         data = json.load(json_data_file)
     return data
 
@@ -85,5 +87,9 @@ def clearScreen():
         os.system('cls')
     else:
         os.system('clear')
+
+def saveConfig(configData, filename):
+    with open(filename, 'w') as json_data_file:
+        json.dump(configData, json_data_file)
 
 play()
