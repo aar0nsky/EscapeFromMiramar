@@ -1,4 +1,4 @@
-import food
+from food import Food
 class Recipe:
     
     def __init__(self, name, *ingredients):
@@ -18,18 +18,26 @@ class Recipe:
         ingredient_list = []
         for ingredient in self.ingredients:
             ingredient_list.append(str(ingredient))
+        ingredient_list.sort()
         return ingredient_list
 
 
 
-americanCheese = food.Food('American Cheese', 0, 12, 8)
-whiteBread = food.Food('White Bread', 190, 2, 6)
-butter = food.Food('Butter', 0, 10, 0)
-pepperjackCheese = food.Food('PepperJack Cheese', 0, 12,8)
+americanCheese = Food('American Cheese', 0, 12, 8)
+whiteBread = Food('White Bread', 190, 2, 6)
+butter = Food('Butter', 0, 10, 0)
+pepperjackCheese = Food('PepperJack Cheese', 0, 12,8)
+ham = Food('Deli Ham', 2,0,10)
 
 grilledCheese = Recipe('Grilled Cheese', americanCheese, whiteBread, butter)
+hamSandwich = Recipe('Ham Sandwich', whiteBread, ham, pepperjackCheese)
+
+recipes = [grilledCheese, hamSandwich]
+
+def printRecipes(recipes):
+    print("Recipe Name\t\tCalories\tIngredient List")
+    for recipe in recipes:
+        print(str(recipe) + "\t\t" + str(recipe.calories()) + "\t\t" + str(recipe.buildIngredientList()))
 
 
-
-print("Recipe Name\t\tCalories\tIngredient List")
-print(str(grilledCheese) + "\t\t" + str(grilledCheese.calories()) + "\t\t" + str(grilledCheese.buildIngredientList()))
+printRecipes(recipes)
